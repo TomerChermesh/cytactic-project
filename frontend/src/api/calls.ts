@@ -1,8 +1,8 @@
 import { api } from './client'
 import type { CallListItem, CallDetail } from '../types/call'
 
-export const fetchCalls = async (): Promise<CallListItem[]> => {
-  const res = await api.get<CallListItem[]>('/calls')
+export const fetchCalls = async (days: number = 7): Promise<CallListItem[]> => {
+  const res = await api.get<CallListItem[]>(`/calls?days=${days}`)
   return res.data
 }
 

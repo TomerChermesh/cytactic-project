@@ -1,4 +1,5 @@
 from typing import List, Optional, TYPE_CHECKING
+from datetime import datetime, timedelta, timezone
 
 from sqlalchemy.orm import Session, joinedload
 
@@ -9,6 +10,7 @@ from src.schemas.call import CallListItem, CallRead
 from src.schemas.tag import TagRead
 from src.schemas.task import TaskRead
 from src.core.exceptions import ItemNotFoundError
+from src.utils.validations import validate_days_limit
 
 if TYPE_CHECKING:
     from src.dal.tag_dal import TagDAL
@@ -22,10 +24,14 @@ class CallDAL(BaseDAL[Call]):
     def list_all_calls(self) -> List[Call]:
         return self.get_all()
 
-    def list_all_calls_with_tags(self) -> List[CallListItem]:
+    def list_all_calls_with_tags(self, days: int = 7) -> List[CallListItem]:
+        validate_days_limit(days)
+        threshold_date: datetime = datetime.now(timezone.utc) - timedelta(days=days)
+        
         calls: List[Call] = (
             self.db.query(Call)
             .options(joinedload(Call.tags))
+            .filter(Call.created_at >= threshold_date)
             .all()
         )
         
