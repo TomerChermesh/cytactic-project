@@ -2,6 +2,7 @@ import React from 'react'
 import { Box } from '@mui/material'
 import Navbar from './Navbar'
 import type { UserRole } from '../../types/user'
+import bgImage from '../../assets/bg-colors.png'
 
 interface LayoutProps {
   mode: UserRole
@@ -11,7 +12,18 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ mode, onToggleMode, children }) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', width: '100%', position: 'relative' }}>
+    <Box sx={{ 
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      overflow: 'hidden',
+      width: '100%',
+      position: 'relative',
+      backgroundImage: `url(${bgImage})`,
+      backgroundRepeat: 'repeat',
+      backgroundSize: 'auto',
+      backgroundPosition: 'center',
+    }}>
       <Navbar mode={mode} onToggleMode={onToggleMode} />
       <Box
         component='main'
