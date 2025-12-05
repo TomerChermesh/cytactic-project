@@ -117,9 +117,7 @@ const CallEditBox: React.FC<CallEditBoxProps> = ({
         </Box>
         {call.description && (
           <Box sx={{ mb: 2, p: 2, bgcolor: 'background.paper', border: 1, borderColor: 'divider', borderRadius: 2 }}>
-            <Typography variant='body1' color='text.primary' sx={{ whiteSpace: 'pre-wrap' }}>
-              {call.description}
-            </Typography>
+            <Typography variant='body1' color='text.primary' sx={{ whiteSpace: 'pre-wrap' }}>{call.description}</Typography>
           </Box>
         )}
       </Box>

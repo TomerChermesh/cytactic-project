@@ -5,7 +5,7 @@ import SuggestedTasksTable from '../components/tables/SuggestedTasksTable'
 import TagForm from '../components/forms/TagForm'
 import SuggestedTaskForm from '../components/forms/SuggestedTaskForm'
 import ConfirmDialog from '../components/common/ConfirmDialog'
-import { useSnackbar } from '../contexts/SnackbarContext'
+import { useSnackbar } from '../components/layout/SnackbarContext'
 import { fetchTags, createTag, updateTag, deleteTag } from '../api/tags'
 import {
   fetchTemplateTasks,
@@ -151,32 +151,9 @@ const AdminPage: React.FC = () => {
   
   return (
     <>
-      <Box sx={{ 
-        width: '100%', 
-        height: '100%', 
-        display: 'flex', 
-        gap: 3,
-        overflow: 'hidden',
-        boxSizing: 'border-box',
-        p: 3
-      }}>
-        <Box sx={{ 
-          flex: '0 0 30%', 
-          display: 'flex', 
-          minWidth: 0,
-          height: '100%',
-          overflow: 'hidden'
-        }}>
-          <Paper 
-            sx={{ 
-              flex: 1,
-              display: 'flex',
-              minWidth: 0,
-              height: '100%',
-              overflow: 'hidden',
-              borderRadius: 2
-            }}
-          >
+      <Box sx={{ width: '100%', height: '100%', display: 'flex', gap: 3, overflow: 'hidden', boxSizing: 'border-box', p: 3 }}>
+        <Box sx={{ flex: '0 0 30%', display: 'flex', minWidth: 0, height: '100%', overflow: 'hidden' }}>
+          <Paper sx={{ flex: 1, display: 'flex', minWidth: 0, height: '100%', overflow: 'hidden', borderRadius: 2 }}>
             <TagsTable 
               tags={tags}
               isLoading={isLoadingTags}
@@ -187,23 +164,8 @@ const AdminPage: React.FC = () => {
           </Paper>
         </Box>
 
-        <Box sx={{ 
-          flex: '0 0 70%', 
-          display: 'flex', 
-          minWidth: 0,
-          height: '100%',
-          overflow: 'hidden'
-        }}>
-          <Paper 
-            sx={{ 
-              flex: 1,
-              display: 'flex',
-              minWidth: 0,
-              height: '100%',
-              overflow: 'hidden',
-              borderRadius: 2
-            }}
-          >
+        <Box sx={{ flex: '0 0 70%', display: 'flex', minWidth: 0, height: '100%', overflow: 'hidden' }}>
+          <Paper sx={{ flex: 1, display: 'flex', minWidth: 0, height: '100%', overflow: 'hidden', borderRadius: 2 }}>
             <SuggestedTasksTable 
               tasks={templateTasks}
               isLoading={isLoadingTasks}

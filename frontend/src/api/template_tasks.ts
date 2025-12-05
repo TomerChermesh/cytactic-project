@@ -50,4 +50,3 @@ export const unlinkTemplateTaskFromCall = async (
 export const deleteTemplateTask = async (taskId: number): Promise<void> => {
   await api.delete(`/tasks/template/${taskId}`)
 }
-

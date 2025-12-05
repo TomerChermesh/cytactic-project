@@ -1,7 +1,6 @@
 import { api } from './client'
 import type { Task, TaskStatus } from '../types/task'
 
-// Ad-hoc tasks API
 export const fetchTasks = async (): Promise<Task[]> => {
   const res = await api.get<Task[]>('/tasks')
   return res.data

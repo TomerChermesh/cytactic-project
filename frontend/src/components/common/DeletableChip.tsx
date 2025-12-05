@@ -28,4 +28,3 @@ const DeletableChip: React.FC<DeletableChipProps> = ({
 }
 
 export default DeletableChip
-

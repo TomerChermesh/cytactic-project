@@ -47,27 +47,18 @@ const BaseForm: React.FC<BaseFormProps> = ({
         }
       }}
       disableEscapeKeyDown
-      maxWidth="sm"
+      maxWidth='sm'
       fullWidth
     >
-      <DialogTitle>
-        {isEdit ? `Edit ${label}` : `Create ${label}`}
-      </DialogTitle>
+      <DialogTitle>{isEdit ? `Edit ${label}` : `Create ${label}`}</DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} disabled={loading}>
-          Cancel
-        </Button>
-        <Button
+        <Button onClick={handleClose} disabled={loading}>Cancel</Button>
+        <Button 
           onClick={handleSubmit}
-          variant="contained"
+          variant='contained'
           disabled={loading || disabled}
-          sx={{
-            backgroundColor: 'success.main',
-            '&:hover': {
-              backgroundColor: 'success.dark',
-            },
-          }}
+          sx={{ backgroundColor: 'success.main', '&:hover': { backgroundColor: 'success.dark' } }}
         >
           {isEdit ? 'Update' : 'Create'}
         </Button>
@@ -77,4 +68,3 @@ const BaseForm: React.FC<BaseFormProps> = ({
 }
 
 export default BaseForm
-

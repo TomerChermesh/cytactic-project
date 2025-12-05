@@ -11,18 +11,10 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ mode, onToggleMode, children }) => {
   return (
-    <Box sx={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      height: '100vh', 
-      overflow: 'hidden',
-      width: '100%',
-      position: 'relative'
-    }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', width: '100%', position: 'relative' }}>
       <Navbar mode={mode} onToggleMode={onToggleMode} />
-      
       <Box
-        component="main"
+        component='main'
         sx={{
           flex: 1,
           overflow: 'hidden',
@@ -42,4 +34,3 @@ const Layout: React.FC<LayoutProps> = ({ mode, onToggleMode, children }) => {
 }
 
 export default Layout
-

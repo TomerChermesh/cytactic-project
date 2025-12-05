@@ -131,15 +131,7 @@ const SuggestedTasksTable: React.FC<SuggestedTasksTableProps> = ({
   ]
 
   return (
-    <Box sx={{ 
-      p: 2, 
-      height: '100%', 
-      width: '100%', 
-      display: 'flex', 
-      flexDirection: 'column',
-      overflow: 'hidden',
-      minHeight: 0
-    }}>
+    <Box sx={{ p: 2, height: '100%', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, height: 40 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <Typography variant='h5'>Suggested Tasks</Typography>
@@ -148,12 +140,7 @@ const SuggestedTasksTable: React.FC<SuggestedTasksTableProps> = ({
       </Box>
 
       {isLoading ? (
-        <Box sx={{ 
-          flex: 1, 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center' 
-        }}>
+        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <CircularProgress />
         </Box>
       ) : (

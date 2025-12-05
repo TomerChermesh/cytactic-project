@@ -63,15 +63,7 @@ const CallTaskForm: React.FC<CallTaskFormProps> = ({
   }
 
   return (
-    <BaseForm
-      open={open}
-      label='Call Task'
-      isEdit={!!task}
-      onClose={handleClose}
-      onSubmit={handleSubmit}
-      loading={loading}
-      disabled={!name.trim()}
-    >
+    <BaseForm open={open} label='Call Task' isEdit={!!task} onClose={handleClose} onSubmit={handleSubmit} loading={loading} disabled={!name.trim()}>
       <Box sx={{ pt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
           autoFocus
@@ -88,11 +80,7 @@ const CallTaskForm: React.FC<CallTaskFormProps> = ({
         />
         <FormControl fullWidth disabled={loading}>
           <InputLabel>Status</InputLabel>
-          <Select
-            value={status}
-            label='Status'
-            onChange={(e) => setStatus(e.target.value as TaskStatus)}
-          >
+          <Select value={status} onChange={(e) => setStatus(e.target.value as TaskStatus)}>
             <MenuItem value='open'>Open</MenuItem>
             <MenuItem value='in_progress'>In Progress</MenuItem>
             <MenuItem value='completed'>Completed</MenuItem>
@@ -104,4 +92,3 @@ const CallTaskForm: React.FC<CallTaskFormProps> = ({
 }
 
 export default CallTaskForm
-
