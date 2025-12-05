@@ -23,23 +23,19 @@ const UserPage: React.FC = () => {
   const [suggestedTasks, setSuggestedTasks] = useState<TemplateTask[]>([])
   const [tags, setTags] = useState<Tag[]>([])
   const [days, setDays] = useState<number>(7)
-  const [isLoadingCalls, setIsLoadingCalls] = useState(true)
-  const [isLoadingCall, setIsLoadingCall] = useState(false)
-  const [isLoadingCallTasks, setIsLoadingCallTasks] = useState(false)
-  const [isLoadingSuggestedTasks, setIsLoadingSuggestedTasks] = useState(false)
+  const [isLoadingCalls, setIsLoadingCalls] = useState<boolean>(true)
+  const [isLoadingCall, setIsLoadingCall] = useState<boolean>(false)
+  const [isLoadingCallTasks, setIsLoadingCallTasks] = useState<boolean>(false)
+  const [isLoadingSuggestedTasks, setIsLoadingSuggestedTasks] = useState<boolean>(false)
   
-  const [callFormOpen, setCallFormOpen] = useState(false)
+  const [callFormOpen, setCallFormOpen] = useState<boolean>(false)
   const [editingCall, setEditingCall] = useState<CallDetail | null>(null)
 
-  const [callTaskFormOpen, setCallTaskFormOpen] = useState(false)
+  const [callTaskFormOpen, setCallTaskFormOpen] = useState<boolean>(false)
   const [editingCallTask, setEditingCallTask] = useState<CallTask | null>(null)
   
-  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
-  const [confirmDialogConfig, setConfirmDialogConfig] = useState<{
-    title: string
-    message: string
-    onConfirm: () => void
-  } | null>(null)
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false)
+  const [confirmDialogConfig, setConfirmDialogConfig] = useState<{title: string, message: string, onConfirm: () => void} | null>(null)
 
   useEffect(() => {
     setIsLoadingCalls(true)
@@ -62,9 +58,7 @@ const UserPage: React.FC = () => {
   useEffect(() => {
     if (selectedCall && selectedCall.tags && selectedCall.tags.length > 0) {
       setIsLoadingSuggestedTasks(true)
-      Promise.all(
-        selectedCall.tags.map((tag) => fetchTagSuggestedTasks(tag.id))
-      )
+      Promise.all(selectedCall.tags.map((tag) => fetchTagSuggestedTasks(tag.id)))
         .then((tagWithTasks) => {
           const taskIds = new Set<number>()
           tagWithTasks.forEach((tagData) => {
@@ -74,9 +68,7 @@ const UserPage: React.FC = () => {
           })
           
           return fetchTemplateTasks().then((allTemplateTasks) => {
-            const suggestedTemplateTasks = allTemplateTasks.filter((task) =>
-              taskIds.has(task.id)
-            )
+            const suggestedTemplateTasks = allTemplateTasks.filter((task) => taskIds.has(task.id))
             setSuggestedTasks(suggestedTemplateTasks)
           })
         })
@@ -96,7 +88,7 @@ const UserPage: React.FC = () => {
       const call = await fetchCall(callId)
       setSelectedCall(call)
     } catch (error) {
-      console.error('Failed to fetch call:', error)
+      showAlert('error', 'Failed to fetch call.')
     } finally {
       setIsLoadingCall(false)
     }
@@ -117,11 +109,10 @@ const UserPage: React.FC = () => {
     if (!selectedCall) return
     try {
       await linkTemplateTaskToCall(task.id, selectedCall.id)
-      const updatedCallTasks = await fetchCallTasks(selectedCall.id)
-      setCallTasks(updatedCallTasks)
+      await refreshCallTasks()
       showAlert('success', `Task '${task.name}' added to call successfully!`)
     } catch (error) {
-      console.error('Failed to add task to call:', error)
+      showAlert('error', 'Failed to add task to call.')
     }
   }
 
@@ -129,26 +120,34 @@ const UserPage: React.FC = () => {
     setCallFormOpen(true)
   }
 
+  const refreshCallData = async (callId: number, name: string, isUpdate: boolean) => {
+    const updatedCalls = await fetchCalls(days)
+    setCalls(updatedCalls)
+    const callDetail = await fetchCall(callId)
+    setSelectedCall(callDetail)
+    showAlert('success', `Call '${name}' ${isUpdate ? 'updated' : 'created'} successfully!`)
+  }
+
+  const refreshCallTasks = async () => {
+    if (!selectedCall) return
+    const updatedCallTasks = await fetchCallTasks(selectedCall.id)
+    setCallTasks(updatedCallTasks)
+  }
+
   const handleCallSubmit = async (name: string, description: string | null, tagIds: number[]) => {
     try {
+      let savedCall: CallListItem
+      
       if (editingCall) {
-        const updatedCall = await updateCall(editingCall.id, name, description, tagIds)
-        const updatedCalls = await fetchCalls()
-        setCalls(updatedCalls)
-        const callDetail = await fetchCall(updatedCall.id)
-        setSelectedCall(callDetail)
-        showAlert('success', `Call '${name}' updated successfully!`)
+        savedCall = await updateCall(editingCall.id, name, description, tagIds)
+        await refreshCallData(savedCall.id, name, true)
       } else {
-        const newCall = await createCall(name, tagIds, description)
-        const updatedCalls = await fetchCalls()
-        setCalls(updatedCalls)
-        const callDetail = await fetchCall(newCall.id)
-        setSelectedCall(callDetail)
-        showAlert('success', `Call '${name}' created successfully!`)
+        savedCall = await createCall(name, tagIds, description)
+        await refreshCallData(savedCall.id, name, false)
       }
+      
       setEditingCall(null)
     } catch (error) {
-      console.error('Failed to save call:', error)
       showAlert('error', 'Failed to save call.')
       throw error
     }
@@ -180,10 +179,8 @@ const UserPage: React.FC = () => {
             await deleteCallTask(task.id)
             showAlert('success', `Task '${task.name}' deleted successfully!`)
           }
-          const updatedCallTasks = await fetchCallTasks(selectedCall.id)
-          setCallTasks(updatedCallTasks)
+          await refreshCallTasks()
         } catch (error) {
-          console.error('Failed to delete task:', error)
           showAlert('error', 'Failed to delete task.')
         } finally {
           setConfirmDialogOpen(false)
@@ -204,11 +201,9 @@ const UserPage: React.FC = () => {
         await createAdHocTask(selectedCall.id, name)
         showAlert('success', `Task '${name}' created successfully!`)
       }
-      const updatedCallTasks = await fetchCallTasks(selectedCall.id)
-      setCallTasks(updatedCallTasks)
+      await refreshCallTasks()
       setEditingCallTask(null)
     } catch (error) {
-      console.error('Failed to save task:', error)
       showAlert('error', 'Failed to save task.')
       throw error
     }
@@ -218,11 +213,9 @@ const UserPage: React.FC = () => {
     if (!selectedCall) return
     try {
       await updateCallTask(task.id, selectedCall.id, task.name, 'completed')
-      const updatedCallTasks = await fetchCallTasks(selectedCall.id)
-      setCallTasks(updatedCallTasks)
+      await refreshCallTasks()
       showAlert('success', `Task '${task.name}' marked as completed!`)
     } catch (error) {
-      console.error('Failed to complete task:', error)
       showAlert('error', 'Failed to complete task.')
     }
   }

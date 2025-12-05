@@ -7,12 +7,7 @@ import SuggestedTaskForm from '../components/forms/SuggestedTaskForm'
 import ConfirmDialog from '../components/common/ConfirmDialog'
 import { useSnackbar } from '../components/layout/SnackbarContext'
 import { fetchTags, createTag, updateTag, deleteTag } from '../api/tags'
-import {
-  fetchTemplateTasks,
-  createTemplateTask,
-  updateTemplateTask,
-  deleteTemplateTask,
-} from '../api/template_tasks'
+import { fetchTemplateTasks, createTemplateTask, updateTemplateTask, deleteTemplateTask } from '../api/template_tasks'
 import type { Tag } from '../types/tag'
 import type { TemplateTask } from '../types/task'
 
@@ -20,21 +15,17 @@ const AdminPage: React.FC = () => {
   const { showAlert } = useSnackbar()
   const [tags, setTags] = useState<Tag[]>([])
   const [templateTasks, setTemplateTasks] = useState<TemplateTask[]>([])
-  const [isLoadingTags, setIsLoadingTags] = useState(true)
-  const [isLoadingTasks, setIsLoadingTasks] = useState(true)
+  const [isLoadingTags, setIsLoadingTags] = useState<boolean>(true)
+  const [isLoadingTasks, setIsLoadingTasks] = useState<boolean>(true)
   
-  const [tagFormOpen, setTagFormOpen] = useState(false)
+  const [tagFormOpen, setTagFormOpen] = useState<boolean>(false)
   const [editingTag, setEditingTag] = useState<Tag | null>(null)
   
-  const [taskFormOpen, setTaskFormOpen] = useState(false)
+  const [taskFormOpen, setTaskFormOpen] = useState<boolean>(false)
   const [editingTask, setEditingTask] = useState<TemplateTask | null>(null)
   
-  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
-  const [confirmDialogConfig, setConfirmDialogConfig] = useState<{
-    title: string
-    message: string
-    onConfirm: () => void
-  } | null>(null)
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false)
+  const [confirmDialogConfig, setConfirmDialogConfig] = useState<{title: string, message: string, onConfirm: () => void} | null>(null)
 
   useEffect(() => {
     setIsLoadingTags(true)
@@ -43,13 +34,12 @@ const AdminPage: React.FC = () => {
       .finally(() => setIsLoadingTags(false))
   }, [])
 
-  useEffect(() => {   
+  useEffect(() => {
     setIsLoadingTasks(true)
     fetchTemplateTasks()
       .then(setTemplateTasks)
       .finally(() => setIsLoadingTasks(false))
   }, [])
-
 
   const handleCreateTag = () => {
     setEditingTag(null)
@@ -130,9 +120,7 @@ const AdminPage: React.FC = () => {
     try {
       if (editingTask) {
         const updated = await updateTemplateTask(editingTask.id, name, tagIds)
-        setTemplateTasks(
-          templateTasks.map((t) => (t.id === updated.id ? updated : t))
-        )
+        setTemplateTasks(templateTasks.map((t) => (t.id === updated.id ? updated : t)))
         showAlert('success', `Task '${name}' updated successfully`)
       } else {
         const newTask = await createTemplateTask(name, tagIds)
@@ -148,7 +136,7 @@ const AdminPage: React.FC = () => {
   return (
     <>
       <Box sx={{ width: '100%', height: '100%', display: 'flex', gap: 3, overflow: 'hidden', boxSizing: 'border-box', p: 3 }}>
-        <Box sx={{ flex: '0 0 30%', display: 'flex', minWidth: 0, height: '100%', overflow: 'hidden' }}>
+        <Box sx={{ flex: '0 0 30%', display: 'flex', minWidth: 0, height: '100%', overflow: 'hidden' , p: 1}}>
           <Paper sx={{ flex: 1, display: 'flex', minWidth: 0, height: '100%', overflow: 'hidden', borderRadius: 2 }}>
             <TagsTable 
               tags={tags}
@@ -160,7 +148,7 @@ const AdminPage: React.FC = () => {
           </Paper>
         </Box>
 
-        <Box sx={{ flex: '0 0 70%', display: 'flex', minWidth: 0, height: '100%', overflow: 'hidden' }}>
+        <Box sx={{ flex: '0 0 70%', display: 'flex', minWidth: 0, height: '100%', overflow: 'hidden', p: 1}}>
           <Paper sx={{ flex: 1, display: 'flex', minWidth: 0, height: '100%', overflow: 'hidden', borderRadius: 2 }}>
             <SuggestedTasksTable 
               tasks={templateTasks}
