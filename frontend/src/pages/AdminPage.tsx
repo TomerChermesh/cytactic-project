@@ -71,7 +71,6 @@ const AdminPage: React.FC = () => {
           setTags(tags.filter((t) => t.id !== tag.id))
           showAlert('success', `Tag '${tag.name}' deleted successfully`)
         } catch (error) {
-          console.error('Failed to delete tag:', error)
           showAlert('error', 'Failed to delete tag')
         } finally {
           setConfirmDialogOpen(false)
@@ -93,7 +92,6 @@ const AdminPage: React.FC = () => {
         showAlert('success', `Tag '${name}' created successfully`)
       }
     } catch (error) {
-      console.error('Failed to save tag:', error)
       showAlert('error', 'Failed to save tag')
       throw error
     }
@@ -119,7 +117,6 @@ const AdminPage: React.FC = () => {
           setTemplateTasks(templateTasks.filter((t) => t.id !== task.id))
           showAlert('success', `Task '${task.name}' deleted successfully`)
         } catch (error) {
-          console.error('Failed to delete task:', error)
           showAlert('error', 'Failed to delete task')
         } finally {
           setConfirmDialogOpen(false)
@@ -143,7 +140,6 @@ const AdminPage: React.FC = () => {
         showAlert('success', `Task '${name}' created successfully`)
       }
     } catch (error) {
-      console.error('Failed to save task:', error)
       showAlert('error', 'Failed to save task')
       throw error
     }

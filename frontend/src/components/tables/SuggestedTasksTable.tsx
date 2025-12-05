@@ -1,6 +1,7 @@
 import React from 'react'
 import { Typography, IconButton, Box, CircularProgress } from '@mui/material'
-import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-data-grid'
+import { type GridColDef, type GridRenderCellParams } from '@mui/x-data-grid'
+import BaseTable from './BaseTable'
 import EditIcon from '@mui/icons-material/Edit'
 import ClearIcon from '@mui/icons-material/Clear'
 import AddIcon from '@mui/icons-material/Add'
@@ -145,12 +146,11 @@ const SuggestedTasksTable: React.FC<SuggestedTasksTableProps> = ({
           <CircularProgress />
         </Box>
       ) : (
-        <DataGrid
+        <BaseTable
           rows={tasks}
           columns={columns}
           pageSizeOptions={[5, 10, 25]}
           disableRowSelectionOnClick
-          sx={{ flex: 1, minHeight: 0 }}
           getRowId={(row) => row.id}
         />
       )}
