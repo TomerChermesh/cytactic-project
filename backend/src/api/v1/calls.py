@@ -1,27 +1,26 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from src.core.exceptions import ItemNotFoundError
 
-from src.core.db import get_db
+from src.core.exceptions import InvalidDaysLimitError, ItemNotFoundError
 from src.dal.dependencies import get_call_dal, get_task_dal
 from src.dal.call_dal import CallDAL
 from src.dal.task_dal import TaskDAL
-from src.models.call import Call
-from src.schemas.call import (
-    CallCreate,
-    CallListItem,
-    CallRead,
-    CallUpdate
-)
+from src.schemas.call import CallCreate, CallListItem, CallRead, CallUpdate
 from src.schemas.task import CallTaskRead
 
 router: APIRouter = APIRouter(prefix='/v1/calls')
 
 
 @router.get('', response_model=List[CallListItem])
-def list_calls(call_dal: CallDAL = Depends(get_call_dal)) -> List[CallListItem]:
-    return call_dal.list_all_calls_with_tags()
+def list_calls(
+    days: int = 7,
+    call_dal: CallDAL = Depends(get_call_dal)
+) -> List[CallListItem]:
+    try:
+        return call_dal.list_all_calls_with_tags(days=days)
+    except InvalidDaysLimitError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 @router.post('', response_model=CallRead, status_code=status.HTTP_201_CREATED)
 def create_call(
@@ -53,11 +52,7 @@ def update_call(
     call_dal: CallDAL = Depends(get_call_dal)
 ) -> CallRead:
     try:
-        # Only pass description if it was explicitly provided in the payload
-        # Use model_dump(exclude_unset=True) to check if field was set
-        payload_dict = payload.model_dump(exclude_unset=True)
-        description = payload_dict.get('description') if 'description' in payload_dict else None
-        return call_dal.update_call_and_tags(call_id, payload.name, description, payload.tag_ids)
+        return call_dal.update_call_and_tags(call_id, payload.name, payload.description, payload.tag_ids)
     except ItemNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
 

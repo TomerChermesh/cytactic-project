@@ -9,3 +9,6 @@ class InvalidTaskStatusError(Exception):
 
 class InvalidTaskTypeError(Exception):
     pass
+
+class InvalidDaysLimitError(Exception):
+    pass

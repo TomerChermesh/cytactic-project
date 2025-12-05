@@ -22,6 +22,7 @@ const UserPage: React.FC = () => {
   const [callTasks, setCallTasks] = useState<CallTask[]>([])
   const [suggestedTasks, setSuggestedTasks] = useState<TemplateTask[]>([])
   const [tags, setTags] = useState<Tag[]>([])
+  const [days, setDays] = useState<number>(7)
   const [isLoadingCalls, setIsLoadingCalls] = useState(true)
   const [isLoadingCall, setIsLoadingCall] = useState(false)
   const [isLoadingCallTasks, setIsLoadingCallTasks] = useState(false)
@@ -42,10 +43,10 @@ const UserPage: React.FC = () => {
 
   useEffect(() => {
     setIsLoadingCalls(true)
-    fetchCalls()
+    fetchCalls(days)
       .then(setCalls)
       .finally(() => setIsLoadingCalls(false))
-  }, [])
+  }, [days])
 
   useEffect(() => {
     if (selectedCall) {
@@ -232,7 +233,9 @@ const UserPage: React.FC = () => {
         calls={calls}
         selectedCallId={selectedCall?.id}
         isLoading={isLoadingCalls}
+        days={days}
         onCallSelect={handleCallSelect}
+        onDaysChange={setDays}
       />
 
       <Box sx={{ flex: '0 0 80%', overflow: 'hidden', height: '100%', display: 'flex', minWidth: 0 }}>

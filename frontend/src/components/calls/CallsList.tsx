@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Typography, CircularProgress } from '@mui/material'
+import { Box, Typography, CircularProgress, Select, MenuItem, FormControl, InputLabel } from '@mui/material'
 import CallCard from './CallCard'
 import type { CallListItem } from '../../types/call'
 
@@ -7,16 +7,19 @@ interface CallsListProps {
   calls: CallListItem[]
   selectedCallId?: number | null
   isLoading?: boolean
+  days?: number
   onCallSelect: (callId: number) => void
+  onDaysChange?: (days: number) => void
 }
 
 const CallsList: React.FC<CallsListProps> = ({
   calls,
   selectedCallId,
   isLoading = false,
+  days = 7,
   onCallSelect,
+  onDaysChange,
 }) => {
-  // Sort calls from newest to oldest (by created_at)
   const sortedCalls = [...calls].sort((a, b) => {
     const dateA = new Date(a.created_at).getTime()
     const dateB = new Date(b.created_at).getTime()
@@ -36,8 +39,36 @@ const CallsList: React.FC<CallsListProps> = ({
         minHeight: 0,
       }}
     >
-      <Box sx={{ p: 2, pl: 3, borderBottom: 1, borderColor: 'divider', flexShrink: 0 }}>
+      <Box sx={{ 
+        p: 2, 
+        pl: 3, 
+        borderBottom: 1, 
+        borderColor: 'divider', 
+        flexShrink: 0,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: 2
+      }}>
         <Typography variant='h5'>Calls</Typography>
+        <FormControl size='small' sx={{ minWidth: 100 }}>
+          <InputLabel>Days</InputLabel>
+          <Select
+            value={days.toString()}
+            label='Days'
+            MenuProps={{ PaperProps: { className: 'custom-scrollbar', sx: { maxHeight: 300 } } }}   
+            onChange={(e) => {
+              const value = parseInt(e.target.value, 10)
+              if (!isNaN(value) && value >= 1 && value <= 30 && onDaysChange) {
+                onDaysChange(value)
+              }
+            }}
+          >
+            {Array.from({ length: 30 }, (_, i) => i + 1).map((day) => (
+              <MenuItem key={day} value={day.toString()}>{day}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Box>
       <Box
         className='custom-scrollbar'
