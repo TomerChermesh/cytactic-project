@@ -4,7 +4,8 @@ import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-dat
 import EditIcon from '@mui/icons-material/Edit'
 import ClearIcon from '@mui/icons-material/Clear'
 import NewButton from '../common/NewButton'
-import { getTagColor, TagColor } from '../../constants/colors'
+import { TagColor } from '../../constants/colors'
+import { getTagColor } from '../../utils/colors'
 import type { Tag } from '../../types/tag'
 
 interface TagsTableProps {

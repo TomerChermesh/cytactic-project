@@ -1,6 +1,7 @@
 import React from 'react'
 import { Chip } from '@mui/material'
-import { getTagColor, TagColor } from '../../constants/colors'
+import { TagColor } from '../../constants/colors'
+import { getTagColor } from '../../utils/colors'
 
 interface DeletableChipProps {
   label: string

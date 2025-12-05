@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { TextField, Box, Typography } from '@mui/material'
 import BaseForm from './BaseForm'
-import { TagColor, getTagColor } from '../../constants/colors'
+import { TagColor } from '../../constants/colors'
+import { getTagColor } from '../../utils/colors'
 import type { Tag } from '../../types/tag'
 
 interface TagFormProps {

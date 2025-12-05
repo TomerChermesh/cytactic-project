@@ -19,8 +19,3 @@ export const TAG_COLORS: Record<TagColor, string> = {
   [TagColor.CYAN]: '#00BCD4',
   [TagColor.RED]: '#F44336'
 }
-
-export const getTagColor = (colorId: TagColor): string => {
-  return TAG_COLORS[colorId] || TAG_COLORS[TagColor.GRAY]
-}
-

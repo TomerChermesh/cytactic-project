@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { TextField, Box, Autocomplete, Chip } from '@mui/material'
 import BaseForm from './BaseForm'
-import { getTagColor, TagColor } from '../../constants/colors'
+import { TagColor } from '../../constants/colors'
+import { getTagColor } from '../../utils/colors'
 import type { TemplateTask } from '../../types/task'
 import type { Tag } from '../../types/tag'
 
