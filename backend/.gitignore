@@ -148,3 +148,5 @@ cython_debug/
 *.sqlite
 *.sqlite3
 
+# Logs
+*.log
