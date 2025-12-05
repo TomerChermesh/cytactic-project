@@ -33,7 +33,6 @@ class BaseDAL(Generic[ModelType]):
         return query.all()
 
     def get_all_active(self) -> list[ModelType]:
-        """Get all active records (is_active = True). Only works if model has is_active field."""
         if not self._has_is_active_field():
             return self.get_all()
         return self.db.query(self.model).filter(self.model.is_active.is_(True)).all()

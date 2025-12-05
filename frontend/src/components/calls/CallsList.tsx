@@ -36,7 +36,7 @@ const CallsList: React.FC<CallsListProps> = ({
         borderColor: 'divider',
         overflow: 'hidden',
         height: '100%',
-        minHeight: 0,
+        minHeight: 0
       }}
     >
       <Box sx={{ 
@@ -70,35 +70,14 @@ const CallsList: React.FC<CallsListProps> = ({
           </Select>
         </FormControl>
       </Box>
-      <Box
-        className='custom-scrollbar'
-        sx={{
-          flex: 1,
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          p: 2,
-          minHeight: 0,
-        }}
-      >
+      <Box className='custom-scrollbar' sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', p: 2, minHeight: 0 }}>   
         {isLoading ? (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-            }}
-          >
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
             <CircularProgress />
           </Box>
         ) : (
           sortedCalls.map((call) => (
-            <CallCard
-              key={call.id}
-              call={call}
-              isSelected={selectedCallId === call.id}
-              onClick={() => onCallSelect(call.id)}
-            />
+            <CallCard key={call.id} call={call} isSelected={selectedCallId === call.id} onClick={() => onCallSelect(call.id)} />
           ))
         )}
       </Box>
@@ -107,4 +86,3 @@ const CallsList: React.FC<CallsListProps> = ({
 }
 
 export default CallsList
-

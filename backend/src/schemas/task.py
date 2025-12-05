@@ -87,3 +87,4 @@ class CallTaskRead(TaskRead):
             call_id=call_id,
             status=status
         )
+        

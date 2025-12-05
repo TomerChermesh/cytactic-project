@@ -38,15 +38,9 @@ const CallCard: React.FC<CallCardProps> = ({
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
           <Box sx={{ flex: 1 }}>
             <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1, mb: 0.5, flexWrap: 'wrap' }}>
-              <Typography variant='body2' color='text.secondary' component='span' sx={{ lineHeight: 1.5 }}>
-                #{call.id}
-              </Typography>
-              <Typography variant='body1' color='text.primary' component='span' sx={{ lineHeight: 1.5 }}>
-                {call.name}
-              </Typography>
-              <Typography variant='body2' color='text.secondary' component='span' sx={{ ml: 1, lineHeight: 1.5 }}>
-              {formattedDate}
-              </Typography>
+              <Typography variant='body2' color='text.secondary' component='span' sx={{ lineHeight: 1.5 }}>#{call.id}</Typography>
+              <Typography variant='body1' color='text.primary' component='span' sx={{ lineHeight: 1.5 }}>{call.name}</Typography> 
+              <Typography variant='body2' color='text.secondary' component='span' sx={{ lineHeight: 1.5 }}>{formattedDate}</Typography>
             </Box>
             {call.tags && call.tags.length > 0 && (
               <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
@@ -73,4 +67,3 @@ const CallCard: React.FC<CallCardProps> = ({
 }
 
 export default CallCard
-

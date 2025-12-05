@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState } from 'react'
 import type { ReactNode } from 'react'
-import SnackbarAlerts from '../components/common/SnackbarAlerts'
+import SnackbarAlerts from '../common/SnackbarAlerts'
+import type { AlertType } from '../../types/alert'
 
-type AlertType = 'success' | 'error' | 'warning' | 'info'
 
 interface SnackbarContextType {
   showAlert: (type: AlertType, message: string) => void

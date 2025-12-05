@@ -52,15 +52,7 @@ const TagForm: React.FC<TagFormProps> = ({ open, tag, onClose, onSubmit }) => {
   }
 
   return (
-    <BaseForm
-      open={open}
-      label="Tag"
-      isEdit={!!tag}
-      onClose={handleClose}
-      onSubmit={handleSubmit}
-      loading={loading}
-      disabled={!name.trim()}
-    >
+    <BaseForm open={open} label='Tag' isEdit={!!tag} onClose={handleClose} onSubmit={handleSubmit} loading={loading} disabled={!name.trim()}>
       <Box sx={{ pt: 2 }}>
         <TextField
           autoFocus

@@ -21,4 +21,3 @@ class TagWithSuggestedTasks(TagRead):
             is_active=tag_read.is_active,
             suggested_tasks=suggested_tasks
         )
-

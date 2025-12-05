@@ -5,7 +5,7 @@ import CallEditBox from '../components/calls/CallEditBox'
 import CallForm from '../components/forms/CallForm'
 import CallTaskForm from '../components/forms/CallTaskForm'
 import ConfirmDialog from '../components/common/ConfirmDialog'
-import { useSnackbar } from '../contexts/SnackbarContext'
+import { useSnackbar } from '../components/layout/SnackbarContext'
 import { fetchCalls, fetchCall, createCall, updateCall } from '../api/calls'
 import { fetchCallTasks, createAdHocTask, updateCallTask, deleteCallTask } from '../api/call_tasks'
 import { fetchTemplateTasks, linkTemplateTaskToCall, unlinkTemplateTaskFromCall } from '../api/template_tasks'
@@ -117,9 +117,9 @@ const UserPage: React.FC = () => {
     if (!selectedCall) return
     try {
       await linkTemplateTaskToCall(task.id, selectedCall.id)
-      // Refresh call tasks
       const updatedCallTasks = await fetchCallTasks(selectedCall.id)
       setCallTasks(updatedCallTasks)
+      showAlert('success', `Task '${task.name}' added to call successfully!`)
     } catch (error) {
       console.error('Failed to add task to call:', error)
     }
@@ -240,15 +240,7 @@ const UserPage: React.FC = () => {
 
       <Box sx={{ flex: '0 0 80%', overflow: 'hidden', height: '100%', display: 'flex', minWidth: 0 }}>
         {isLoadingCall ? (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-              width: '100%',
-            }}
-          >
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
             <CircularProgress />
           </Box>
         ) : (

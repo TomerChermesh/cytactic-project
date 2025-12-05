@@ -35,4 +35,3 @@ export const updateCallTask = async (
 export const deleteCallTask = async (taskId: number): Promise<void> => {
   await api.delete(`/tasks/${taskId}`)
 }
-

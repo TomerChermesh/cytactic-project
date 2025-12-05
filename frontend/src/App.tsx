@@ -4,7 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Layout from './components/layout/Layout'
 import AdminPage from './pages/AdminPage'
 import UserPage from './pages/UserPage'
-import { SnackbarProvider } from './contexts/SnackbarContext'
+import { SnackbarProvider } from './components/layout/SnackbarContext'
 import type { UserRole } from './types/user'
 import theme from './theme'
 

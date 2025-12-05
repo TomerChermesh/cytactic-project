@@ -15,11 +15,11 @@ def get_task_dal(
     db: Session = Depends(get_db),
     tag_dal: TagDAL = Depends(get_tag_dal)
 ) -> TaskDAL:
-    return TaskDAL(db, tag_dal=tag_dal)
+    return TaskDAL(db, tag_dal)
 
 
 def get_call_dal(
     db: Session = Depends(get_db),
     tag_dal: TagDAL = Depends(get_tag_dal)
 ) -> CallDAL:
-    return CallDAL(db, tag_dal=tag_dal)
+    return CallDAL(db, tag_dal)

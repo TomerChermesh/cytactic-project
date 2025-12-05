@@ -22,7 +22,7 @@ const CallTasksTable: React.FC<CallTasksTableProps> = ({
   onCreate,
   onComplete,
   onEdit,
-  onDelete,
+  onDelete
 }) => {
   const [showCompleted, setShowCompleted] = useState(false)
 
@@ -43,26 +43,11 @@ const CallTasksTable: React.FC<CallTasksTableProps> = ({
         const task = params.row as CallTask
         const isCompleted = task.status === 'completed'
         return (
-          <Box
-            sx={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'left',
-            }}
-          >
-            <Typography 
-              variant='body1' 
-              sx={{ 
-                color: isCompleted ? 'text.disabled' : 'text.primary'
-              }}
-            >
-              {params.value}
-            </Typography>
+          <Box sx={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
+            <Typography variant='body1' sx={{ color: isCompleted ? 'text.disabled' : 'text.primary' }}>{params.value}</Typography>
           </Box>
         )
-      },
+      }
     },
     {
       field: 'status',
@@ -74,15 +59,7 @@ const CallTasksTable: React.FC<CallTasksTableProps> = ({
         const task = params.row as CallTask
         const isCompleted = task.status === 'completed'
         return (
-          <Box
-            sx={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'left',
-            }}
-          >
+          <Box sx={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
             <Typography 
               variant='body1' 
               sx={{ 
@@ -94,7 +71,7 @@ const CallTasksTable: React.FC<CallTasksTableProps> = ({
             </Typography>
           </Box>
         )
-      },
+      }
     },
     {
       field: 'actions',
@@ -104,17 +81,8 @@ const CallTasksTable: React.FC<CallTasksTableProps> = ({
       filterable: false,
       disableColumnMenu: true,
       renderCell: (params: GridRenderCellParams<CallTask>) => (
-        <Box
-          sx={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 0.5,
-          }}
-        >
-          <IconButton
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+          <IconButton 
             size='medium'
             color='success'
             onClick={() => onComplete?.(params.row as CallTask)}
@@ -140,31 +108,13 @@ const CallTasksTable: React.FC<CallTasksTableProps> = ({
             <ClearIcon fontSize='medium' />
           </IconButton>
         </Box>
-      ),
-    },
+      )
+    }
   ]
 
   return (
-    <Box
-      sx={{
-        p: 2,
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
-        minHeight: 0,
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          mb: 1.5,
-          height: 40,
-        }}
-      >
+    <Box sx={{ p: 2, height: '100%', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, height: 40 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <Typography variant='h5'>Call Tasks</Typography>
           <Tooltip title={showCompleted ? 'Hide Completed' : 'Show Completed'}>
@@ -172,9 +122,7 @@ const CallTasksTable: React.FC<CallTasksTableProps> = ({
               size='small'
               color={showCompleted ? 'success' : 'default'}
               onClick={() => setShowCompleted(!showCompleted)}
-              sx={{
-                color: showCompleted ? 'success.main' : 'action.disabled',
-              }}
+              sx={{ color: showCompleted ? 'success.main' : 'action.disabled' }}
             >
               <CheckCircleIcon fontSize='small' />
             </IconButton>
@@ -184,14 +132,7 @@ const CallTasksTable: React.FC<CallTasksTableProps> = ({
       </Box>
 
       {isLoading ? (
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <CircularProgress />
         </Box>
       ) : (
@@ -209,4 +150,3 @@ const CallTasksTable: React.FC<CallTasksTableProps> = ({
 }
 
 export default CallTasksTable
-

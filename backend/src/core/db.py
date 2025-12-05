@@ -13,7 +13,7 @@ engine: Engine = create_engine(
     future=True,
     pool_pre_ping=True,
     connect_args={
-        "sslmode": "require",
+        'sslmode': 'require',
     }
 )
 SessionLocal: sessionmaker = sessionmaker(bind=engine, autoflush=False, autocommit=False)

@@ -73,14 +73,6 @@ export const api = {
       throw new Error(`DELETE ${path} failed with status ${res.status}`)
     }
 
-    // DELETE might return 204 No Content, so check if there's a body
-    if (res.status === 204) {
-      return
-    }
-
-    const text = await res.text()
-    if (text) {
-      return JSON.parse(text)
-    }
-  },
+    return res.status === 204 ? undefined : await res.json()
+  }
 }

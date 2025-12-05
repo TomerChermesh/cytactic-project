@@ -1,4 +1,4 @@
-from typing import List, Tuple, Optional, TYPE_CHECKING
+from typing import Dict, List, Tuple, TYPE_CHECKING
 
 from sqlalchemy.orm import Session, joinedload
 
@@ -8,7 +8,6 @@ from src.models.custom_types import TaskStatus
 from src.models.tag import Tag
 from src.models.task import Task, TaskType
 from src.schemas.task import CallTaskRead, TemplateTaskRead
-from src.schemas.tag import TagRead
 from src.core.exceptions import ItemNotFoundError, InvalidTaskTypeError
 
 if TYPE_CHECKING:
@@ -16,7 +15,7 @@ if TYPE_CHECKING:
 
 
 class TaskDAL(BaseDAL[Task]):
-    def __init__(self, db: Session, tag_dal: Optional['TagDAL'] = None):
+    def __init__(self, db: Session, tag_dal: 'TagDAL'):
         super().__init__(db, Task)
         self._tag_dal = tag_dal
 
@@ -98,8 +97,7 @@ class TaskDAL(BaseDAL[Task]):
             all_active_tags = self._tag_dal.get_all_active()
             tags: List[Tag] = [tag for tag in all_active_tags if tag.id in tag_ids]
             task.tags = tags
-            self.db.commit()
-            self.db.refresh(task)
+            self.commit_and_refresh(task)
 
         task = self.update_task(task_id, name=name)
         return TemplateTaskRead.from_model(task)
@@ -143,15 +141,16 @@ class TaskDAL(BaseDAL[Task]):
 
    
     def get_all_tasks_by_call_id(self, call_id: int) -> List[CallTaskRead]:
-        all_active_tasks = {t.id: t for t in self.get_all_active()}
+        all_active_tasks: Dict[int, Task] = {t.id: t for t in self.get_all_active()}
         results: List[Tuple[Task, TaskStatus]] = (
             self.db.query(Task, calls_tasks.c.status)
             .join(calls_tasks, Task.id == calls_tasks.c.task_id)
             .filter(calls_tasks.c.call_id == call_id)
             .all()
         )
-        # Filter only active tasks
-        results = [(task, status) for task, status in results if task.id in all_active_tasks]
+        results: List[Tuple[Task, TaskStatus]] = [
+            (task, status) for task, status in results if task.id in all_active_tasks
+        ]
 
         call_tasks: List[CallTaskRead] = [
             CallTaskRead.from_model(task, call_id=call_id, status=TaskStatus(status))

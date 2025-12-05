@@ -29,4 +29,3 @@ const NewButton: React.FC<NewButtonProps> = ({ label, onClick }) => {
 }
 
 export default NewButton
-

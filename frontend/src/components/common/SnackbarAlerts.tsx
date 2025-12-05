@@ -24,25 +24,11 @@ const SnackbarAlerts: React.FC<SnackbarAlertsProps> = ({
       autoHideDuration={autoHideDuration}
       onClose={onClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      sx={{
-        position: 'fixed',
-        top: '80px !important',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 9999,
-      }}
+      sx={{ position: 'fixed', top: '80px !important', left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}
     >
-      <Alert
-        onClose={onClose}
-        severity={type}
-        variant='filled'
-        sx={{ width: '100%' }}
-      >
-        {message}
-      </Alert>
+      <Alert onClose={onClose} severity={type} variant='filled'>{message}</Alert>
     </Snackbar>
   )
 }
 
 export default SnackbarAlerts
-

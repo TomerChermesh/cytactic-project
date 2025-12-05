@@ -17,7 +17,7 @@ const CallForm: React.FC<CallFormProps> = ({
   call,
   tags,
   onClose,
-  onSubmit,
+  onSubmit
 }) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -71,15 +71,7 @@ const CallForm: React.FC<CallFormProps> = ({
   }
 
   return (
-    <BaseForm
-      open={open}
-      label='Call'
-      isEdit={!!call}
-      onClose={handleClose}
-      onSubmit={handleSubmit}
-      loading={loading}
-      disabled={!name.trim()}
-    >
+    <BaseForm open={open} label='Call' isEdit={!!call} onClose={handleClose} onSubmit={handleSubmit} loading={loading} disabled={!name.trim()}>
       <Box sx={{ pt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
           autoFocus
@@ -117,11 +109,7 @@ const CallForm: React.FC<CallFormProps> = ({
           renderInput={(params) => (
             <TextField {...params} label='Tags' placeholder='Select tags' />
           )}
-          slotProps={{
-            chip: {
-              size: 'small',
-            },
-          }}
+          slotProps={{ chip: { size: 'small' } }}
         />
       </Box>
     </BaseForm>
@@ -129,4 +117,3 @@ const CallForm: React.FC<CallFormProps> = ({
 }
 
 export default CallForm
-

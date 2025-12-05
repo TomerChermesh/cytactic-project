@@ -80,27 +80,14 @@ const TagsTable: React.FC<TagsTableProps> = ({
   ]
 
   return (
-    <Box sx={{ 
-      p: 2, 
-      height: '100%', 
-      width: '100%', 
-      display: 'flex', 
-      flexDirection: 'column',
-      overflow: 'hidden',
-      minHeight: 0
-    }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+    <Box sx={{ p: 2, height: '100%', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, height: 40 }}>
         <Typography variant='h5'>Tags</Typography>
         <NewButton label='Tag' onClick={onCreate} />
       </Box>
 
       {isLoading ? (
-        <Box sx={{ 
-          flex: 1, 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center' 
-        }}>
+        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <CircularProgress />
         </Box>
       ) : (
