@@ -24,8 +24,7 @@ def list_tasks(task_dal: TaskDAL = Depends(get_task_dal)) -> List[Task]:
 @router.post('', response_model=TaskRead, status_code=status.HTTP_201_CREATED)
 def create_task(
     payload: AdHocTaskCreate,
-    call_dal: CallDAL = Depends(get_call_dal),
-    task_dal: TaskDAL = Depends(get_task_dal),
+    task_dal: TaskDAL = Depends(get_task_dal)
 ) -> Task:
     try:
         logger.info(f'Creating ad-hoc task: name={payload.name}, call_id={payload.call_id}')
@@ -41,7 +40,7 @@ def create_task(
 def update_task(
     task_id: int,
     payload: TaskAndStatusUpdate,
-    task_dal: TaskDAL = Depends(get_task_dal),
+    task_dal: TaskDAL = Depends(get_task_dal)
 ) -> Task:
     try:
         logger.info(f'Updating task: id={task_id}, name={payload.name}, status={payload.status}, call_id={payload.call_id}')
@@ -56,7 +55,7 @@ def update_task(
 @router.delete('/{task_id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_task(
     task_id: int,
-    task_dal: TaskDAL = Depends(get_task_dal),
+    task_dal: TaskDAL = Depends(get_task_dal)
 ) -> None:
     try:
         logger.info(f'Deleting task: id={task_id}')

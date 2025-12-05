@@ -92,8 +92,7 @@ class CallDAL(BaseDAL[Call]):
             all_active_tags = self._tag_dal.get_all_active()
             tags = [tag for tag in all_active_tags if tag.id in tag_ids]
             call.tags = tags
-            self.db.commit()
-            self.db.refresh(call)
+            self.commit_and_refresh(call)
 
         call = self.update_call(call_id, name=name, description=description)
         

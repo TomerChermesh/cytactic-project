@@ -2,9 +2,8 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from src.dal.dependencies import get_tag_dal, get_task_dal
+from src.dal.dependencies import get_tag_dal
 from src.dal.tag_dal import TagDAL
-from src.dal.task_dal import TaskDAL
 from src.models.tag import Tag
 from src.schemas.associations import TagWithSuggestedTasks
 from src.schemas.tag import TagCreate, TagRead, TagUpdate
@@ -46,7 +45,7 @@ def get_tag(tag_id: int, tag_dal: TagDAL = Depends(get_tag_dal)) -> Tag:
 def update_tag(
     tag_id: int,
     payload: TagUpdate,
-    tag_dal: TagDAL = Depends(get_tag_dal),
+    tag_dal: TagDAL = Depends(get_tag_dal)
 ) -> Tag:
     try:
         logger.info(f'Updating tag: id={tag_id}, name={payload.name}')

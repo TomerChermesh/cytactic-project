@@ -8,7 +8,6 @@ from src.constants.api import RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_SECONDS
 from src.utils.logger import logger
 
 
-
 _requests_log: Dict[str, Deque[float]] = {}
 
 
@@ -30,5 +29,3 @@ async def rate_limiter(request: Request) -> None:
     )
 
   bucket.append(now)
-
-

@@ -12,8 +12,6 @@ if TYPE_CHECKING:
     from src.models.call import Call
 
 
-
-
 class Task(Base):
     __tablename__ = 'tasks'
 
