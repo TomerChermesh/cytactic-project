@@ -109,7 +109,7 @@ const CallEditBox: React.FC<CallEditBoxProps> = ({
         <Box sx={{ display: 'flex', mb: 2, flexWrap: 'wrap' }}>
           {call.tags && call.tags.length > 0 ? (
             call.tags.map((tag) => (
-              <DeletableChip key={tag.id} label={tag.name} deletable={false} />
+              <DeletableChip key={tag.id} label={tag.name} deletable={false} colorId={tag.color_id} />
             ))
           ) : (
             <Typography variant='body2' color='text.secondary'>No tags</Typography>

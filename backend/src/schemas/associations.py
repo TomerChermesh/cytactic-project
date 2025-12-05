@@ -19,5 +19,6 @@ class TagWithSuggestedTasks(TagRead):
             created_at=tag_read.created_at,
             updated_at=tag_read.updated_at,
             is_active=tag_read.is_active,
+            color_id=tag_read.color_id,
             suggested_tasks=suggested_tasks
         )

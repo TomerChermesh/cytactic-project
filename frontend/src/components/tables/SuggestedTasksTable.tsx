@@ -68,11 +68,12 @@ const SuggestedTasksTable: React.FC<SuggestedTasksTableProps> = ({
           gap: 0.5, 
           flexWrap: 'wrap', 
         }}>
-          {(params.row as TemplateTask).tags?.map((tag: { id: number; name: string }) => (
+          {(params.row as TemplateTask).tags?.map((tag) => (
             <DeletableChip 
               key={tag.id} 
               label={tag.name}
               deletable={false}
+              colorId={tag.color_id}
             />
           )) || <Typography variant='body1' color='text.secondary'>No tags</Typography>}
         </Box>

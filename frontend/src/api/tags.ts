@@ -11,13 +11,17 @@ export const fetchTag = async (tagId: number): Promise<Tag> => {
   return res.data
 }
 
-export const createTag = async (name: string): Promise<Tag> => {
-  const res = await api.post<Tag>('/tags', { name })
+export const createTag = async (name: string, colorId: number = 0): Promise<Tag> => {
+  const res = await api.post<Tag>('/tags', { name, color_id: colorId })
   return res.data
 }
 
-export const updateTag = async (tagId: number, name: string): Promise<Tag> => {
-  const res = await api.patch<Tag>(`/tags/${tagId}`, { name })
+export const updateTag = async (tagId: number, name: string, colorId?: number): Promise<Tag> => {
+  const payload: { name: string; color_id?: number } = { name }
+  if (colorId !== undefined) {
+    payload.color_id = colorId
+  }
+  const res = await api.patch<Tag>(`/tags/${tagId}`, payload)
   return res.data
 }
 

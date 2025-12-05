@@ -16,6 +16,7 @@ class Tag(Base):
 
     name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    color_id: Mapped[int] = mapped_column(default=0, nullable=False)
 
     tasks: Mapped[List['Task']] = relationship(
         'Task',
