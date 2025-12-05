@@ -1,4 +1,4 @@
-from typing import List, Optional, TYPE_CHECKING
+from typing import List, TYPE_CHECKING
 from datetime import datetime, timedelta, timezone
 
 from sqlalchemy.orm import Session, joinedload
@@ -8,7 +8,6 @@ from src.models.call import Call
 from src.models.tag import Tag
 from src.schemas.call import CallListItem, CallRead
 from src.schemas.tag import TagRead
-from src.schemas.task import TaskRead
 from src.core.exceptions import ItemNotFoundError
 from src.utils.validations import validate_days_limit
 
@@ -17,7 +16,7 @@ if TYPE_CHECKING:
 
 
 class CallDAL(BaseDAL[Call]):
-    def __init__(self, db: Session, tag_dal: Optional['TagDAL'] = None):
+    def __init__(self, db: Session, tag_dal: 'TagDAL'):
         super().__init__(db, Call)
         self._tag_dal = tag_dal
 
@@ -81,7 +80,6 @@ class CallDAL(BaseDAL[Call]):
         call: Call = self.get_call_by_id(call_id)
         if name is not None:
             call.name = name
-        # If description is empty string, set to None. Otherwise update if provided.
         if description is not None:
             call.description = description if description else None
 
@@ -99,7 +97,6 @@ class CallDAL(BaseDAL[Call]):
 
         call = self.update_call(call_id, name=name, description=description)
         
-        # Reload call with tasks for CallRead
         call_with_tasks: Call | None = (
             self.db.query(Call)
             .options(joinedload(Call.tags), joinedload(Call.tasks))

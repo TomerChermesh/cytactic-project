@@ -40,20 +40,9 @@ class TagDAL(BaseDAL[Tag]):
         if tag is None:
             raise ItemNotFoundError(f'Tag with id {tag_id} not found')
 
-        # Filter only template tasks that are active
-        template_tasks = [t for t in tag.tasks if t.type == TaskType.TEMPLATE and t.is_active]
-
-        # Create TagRead first to get all base fields including created_at and updated_at
-        tag_read = TagRead.from_model(tag)
-        
-        return TagWithSuggestedTasks(
-            id=tag_read.id,
-            name=tag_read.name,
-            created_at=tag_read.created_at,
-            updated_at=tag_read.updated_at,
-            is_active=tag_read.is_active,
-            suggested_tasks=[TaskRead.from_model(t) for t in template_tasks]
-        )
+        template_tasks: List[TaskRead] = [TaskRead.from_model(t) for t in tag.tasks if t.type == TaskType.TEMPLATE and t.is_active]
+    
+        return TagWithSuggestedTasks.from_model(tag, suggested_tasks=template_tasks)
 
     def create_tag(self, name: str) -> Tag:
         tag: Tag = Tag(name=name)

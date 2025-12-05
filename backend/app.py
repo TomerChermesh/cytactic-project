@@ -1,4 +1,7 @@
-from fastapi import FastAPI
+from contextlib import asynccontextmanager
+from typing import Any, Callable, Coroutine
+
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.api.v1 import calls as calls_router
@@ -7,8 +10,22 @@ from src.api.v1 import tasks as tasks_router
 from src.api.v1 import template_tasks as template_tasks_router
 from src.core.db import init_db
 from src.constants.api import API_PREFIX, ALLOWED_ORIGINS
+from src.utils.logger import logger
+from src.utils.rate_limit import rate_limiter
 
-app: FastAPI = FastAPI(title='Cytactic API')
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info('Starting Centriq API...')
+    init_db()
+    logger.info('Database initialized successfully')
+    logger.info('Centriq API started successfully')
+    yield
+    logger.info('Shutting down Centriq API...')
+
+
+app: FastAPI = FastAPI(title='Centriq API', lifespan=lifespan)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,10 +35,11 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
-
-@app.on_event('startup')
-def on_startup() -> None:
-    init_db()
+@app.middleware('http')
+async def rate_limit_middleware(request: Request, call_next: Callable[[Request], Coroutine[Any, Any, Response]]) -> Response:
+    await rate_limiter(request)
+    response: Response = await call_next(request)
+    return response
 
 
 app.include_router(tags_router.router, prefix=API_PREFIX, tags=['tags'])
