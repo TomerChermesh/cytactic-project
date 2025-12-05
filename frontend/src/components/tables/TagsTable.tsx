@@ -4,6 +4,7 @@ import { DataGrid, type GridColDef, type GridRenderCellParams } from '@mui/x-dat
 import EditIcon from '@mui/icons-material/Edit'
 import ClearIcon from '@mui/icons-material/Clear'
 import NewButton from '../common/NewButton'
+import { getTagColor, TagColor } from '../../constants/colors'
 import type { Tag } from '../../types/tag'
 
 interface TagsTableProps {
@@ -39,6 +40,35 @@ const TagsTable: React.FC<TagsTableProps> = ({
           justifyContent: 'left' 
         }}>
           <Typography variant='body1'>{params.value}</Typography>
+        </Box>
+      ),
+    },
+    {
+      field: 'color_id',
+      headerName: 'Color',
+      headerAlign: 'left',
+      width: 100,
+      renderHeader: () => (
+        <Typography variant='body1'>Color</Typography>
+      ),
+      renderCell: (params: GridRenderCellParams<Tag>) => (
+        <Box sx={{ 
+          width: '100%', 
+          height: '100%', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'left' 
+        }}>
+          <Box
+            sx={{
+              width: 24,
+              height: 24,
+              borderRadius: '50%',
+              backgroundColor: getTagColor(params.row.color_id as TagColor),
+              border: 1,
+              borderColor: 'divider',
+            }}
+          />
         </Box>
       ),
     },

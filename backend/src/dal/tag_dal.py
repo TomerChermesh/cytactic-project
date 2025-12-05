@@ -44,17 +44,19 @@ class TagDAL(BaseDAL[Tag]):
     
         return TagWithSuggestedTasks.from_model(tag, suggested_tasks=template_tasks)
 
-    def create_tag(self, name: str) -> Tag:
-        tag: Tag = Tag(name=name)
+    def create_tag(self, name: str, color_id: int = 0) -> Tag:
+        tag: Tag = Tag(name=name, color_id=color_id)
         return self.create(tag)
     
-    def update_tag(self, tag_id: int, name: str | None = None, is_active: bool | None = None) -> Tag:
+    def update_tag(self, tag_id: int, name: str | None = None, is_active: bool | None = None, color_id: int | None = None) -> Tag:
         tag: Tag | None = self.get_tag_by_id(tag_id)
 
         if name is not None:
             tag.name = name
         if is_active is not None:
             tag.is_active = is_active
+        if color_id is not None:
+            tag.color_id = color_id
 
         return self.update(tag)
 

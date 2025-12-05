@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 
 class TagCreate(BaseModel):
     name: str
+    color_id: int = 0
 
 
 class TagUpdate(TagCreate):
@@ -18,6 +19,7 @@ class TagUpdate(TagCreate):
 
 class TagRead(BaseReadSchema):
     is_active: bool
+    color_id: int
 
     class Config:
         from_attributes = True
@@ -29,5 +31,6 @@ class TagRead(BaseReadSchema):
             name=tag.name,
             created_at=tag.created_at,
             updated_at=tag.updated_at,
-            is_active=tag.is_active
+            is_active=tag.is_active,
+            color_id=tag.color_id
         )

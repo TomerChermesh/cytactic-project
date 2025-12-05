@@ -45,7 +45,7 @@ const CallCard: React.FC<CallCardProps> = ({
             {call.tags && call.tags.length > 0 && (
               <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
                 {call.tags.map((tag) => (
-                  <DeletableChip key={tag.id} label={tag.name} deletable={false} size='small' />
+                  <DeletableChip key={tag.id} label={tag.name} deletable={false} size='small' colorId={tag.color_id} />
                 ))}
               </Box>
             )}

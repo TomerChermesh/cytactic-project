@@ -4,6 +4,7 @@ export interface Tag {
   created_at: string
   updated_at: string
   is_active: boolean
+  color_id: number
 }
 
 export interface TagWithSuggestedTasks extends Tag {

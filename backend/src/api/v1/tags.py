@@ -23,8 +23,8 @@ def list_tags(tag_dal: TagDAL = Depends(get_tag_dal)) -> List[Tag]:
 
 @router.post('', response_model=TagRead, status_code=status.HTTP_201_CREATED)
 def create_tag(payload: TagCreate, tag_dal: TagDAL = Depends(get_tag_dal)) -> Tag:
-    logger.info(f'Creating tag: name={payload.name}')
-    result = tag_dal.create_tag(name=payload.name)
+    logger.info(f'Creating tag: name={payload.name}, color_id={payload.color_id}')
+    result = tag_dal.create_tag(name=payload.name, color_id=payload.color_id)
     logger.info(f'Successfully created tag with id: {result.id}')
     return result
 
@@ -48,8 +48,12 @@ def update_tag(
     tag_dal: TagDAL = Depends(get_tag_dal)
 ) -> Tag:
     try:
-        logger.info(f'Updating tag: id={tag_id}, name={payload.name}')
-        result = tag_dal.update_tag(tag_id, payload.name)
+        # Get color_id from payload if provided, otherwise None
+        payload_dict = payload.model_dump(exclude_unset=True)
+        color_id = payload_dict.get('color_id') if 'color_id' in payload_dict else None
+        
+        logger.info(f'Updating tag: id={tag_id}, name={payload.name}, color_id={color_id}')
+        result = tag_dal.update_tag(tag_id, payload.name, color_id=color_id)
         logger.info(f'Successfully updated tag: {result.name}')
         return result
     except ItemNotFoundError as e:

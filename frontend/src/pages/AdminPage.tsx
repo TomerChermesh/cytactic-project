@@ -81,14 +81,14 @@ const AdminPage: React.FC = () => {
     setConfirmDialogOpen(true)
   }
 
-  const handleTagSubmit = async (name: string) => {
+  const handleTagSubmit = async (name: string, colorId: number) => {
     try {
       if (editingTag) {
-        const updated = await updateTag(editingTag.id, name)
+        const updated = await updateTag(editingTag.id, name, colorId)
         setTags(tags.map((t) => (t.id === updated.id ? updated : t)))
         showAlert('success', `Tag '${name}' updated successfully`)
       } else {
-        const newTag = await createTag(name)
+        const newTag = await createTag(name, colorId)
         setTags([...tags, newTag])
         showAlert('success', `Tag '${name}' created successfully`)
       }
