@@ -28,6 +28,11 @@ export const SnackbarProvider: React.FC<SnackbarProviderProps> = ({ children }) 
   const [message, setMessage] = useState('')
 
   const showAlert = (alertType: AlertType, alertMessage: string) => {
+    if (alertType === 'error') {
+      console.error(`${alertType}: ${alertMessage}`)
+    } else {
+      console.log(`${alertType}: ${alertMessage}`)
+    }
     setType(alertType)
     setMessage(alertMessage)
     setOpen(true)

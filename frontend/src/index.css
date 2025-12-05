@@ -87,10 +87,6 @@ button {
 button:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -121,4 +117,14 @@ button:focus-visible {
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.MuiIconButton-root:focus,
+.MuiIconButton-root:focus-visible {
+  outline: none !important;
+}
+
+button:focus,
+button:focus-visible {
+  outline: none !important;
 }
