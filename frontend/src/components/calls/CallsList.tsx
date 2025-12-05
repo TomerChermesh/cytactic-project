@@ -36,7 +36,8 @@ const CallsList: React.FC<CallsListProps> = ({
         borderColor: 'divider',
         overflow: 'hidden',
         height: '100%',
-        minHeight: 0
+        minHeight: 0,
+        backgroundColor: 'white'
       }}
     >
       <Box sx={{ 

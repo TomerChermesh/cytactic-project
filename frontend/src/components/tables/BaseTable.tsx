@@ -5,10 +5,11 @@ interface BaseTableProps extends Omit<DataGridProps, 'sx'> {
   sx?: DataGridProps['sx']
 }
 
-const BaseTable: React.FC<BaseTableProps> = ({ sx, ...props }) => {
+const BaseTable: React.FC<BaseTableProps> = ({ sx, pageSizeOptions = [5, 10, 25], ...props }) => {
   return (
     <DataGrid
       {...props}
+      pageSizeOptions={pageSizeOptions}
       sx={{
         flex: 1,
         minHeight: 0,
