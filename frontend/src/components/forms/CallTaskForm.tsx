@@ -81,7 +81,7 @@ const CallTaskForm: React.FC<CallTaskFormProps> = ({
         />
         <FormControl fullWidth disabled={loading}>
           <InputLabel>Status</InputLabel>
-          <Select value={status} onChange={(e) => setStatus(e.target.value as TaskStatus)}>
+          <Select value={status} label='Status' onChange={(e) => setStatus(e.target.value as TaskStatus)}>
             <MenuItem value='open'>Open</MenuItem>
             <MenuItem value='in_progress'>In Progress</MenuItem>
             <MenuItem value='completed'>Completed</MenuItem>

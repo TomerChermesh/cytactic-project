@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ mode, onToggleMode, children }) => {
       backgroundImage: `url(${bgImage})`,
       backgroundRepeat: 'repeat',
       backgroundSize: 'auto',
-      backgroundPosition: 'center',
+      backgroundPosition: 'center'
     }}>
       <Navbar mode={mode} onToggleMode={onToggleMode} />
       <Box
