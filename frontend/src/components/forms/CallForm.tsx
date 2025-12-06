@@ -101,8 +101,14 @@ const CallForm: React.FC<CallFormProps> = ({
           options={tags}
           getOptionLabel={(option) => option.name}
           value={selectedTags}
-          onChange={(_, newValue) => { setSelectedTags(newValue) }}
+          onChange={(_, newValue) => {
+            const uniqueTags = newValue.filter((tag, index, self) =>
+              index === self.findIndex((t) => t.id === tag.id)
+            )
+            setSelectedTags(uniqueTags)
+          }}
           disabled={loading}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
           renderInput={(params) => (
             <TextField {...params} label='Tags' placeholder='Select tags' />
           )}
