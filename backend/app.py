@@ -24,8 +24,7 @@ async def lifespan(app: FastAPI):
     logger.info('Shutting down Centriq API...')
 
 
-app: FastAPI = FastAPI(title='Centriq API', lifespan=lifespan)
-
+app = FastAPI(title='Centriq API', lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -35,10 +34,14 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
+
 @app.middleware('http')
-async def rate_limit_middleware(request: Request, call_next: Callable[[Request], Coroutine[Any, Any, Response]]) -> Response:
+async def rate_limit_middleware(
+    request: Request,
+    call_next: Callable[[Request], Coroutine[Any, Any, Response]],
+) -> Response:
     await rate_limiter(request)
-    response: Response = await call_next(request)
+    response = await call_next(request)
     return response
 
 
