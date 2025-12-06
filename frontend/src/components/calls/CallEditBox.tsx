@@ -100,7 +100,7 @@ const CallEditBox: React.FC<CallEditBoxProps> = ({
         <Typography variant='body2' color='text.secondary' sx={{ mb: 2 }}>
           {formattedDate}
         </Typography>
-        <Box sx={{ display: 'flex', mb: 2, flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', mb: 2, flexWrap: 'wrap', gap: 0.5 }}>
           {call.tags && call.tags.length > 0 ? (
             call.tags.map((tag) => (
               <DeletableChip key={tag.id} label={tag.name} deletable={false} colorId={tag.color_id} />

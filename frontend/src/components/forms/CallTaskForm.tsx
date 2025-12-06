@@ -17,10 +17,10 @@ const CallTaskForm: React.FC<CallTaskFormProps> = ({
   onClose,
   onSubmit,
 }) => {
-  const [name, setName] = useState('')
+  const [name, setName] = useState<string>('')
   const [status, setStatus] = useState<TaskStatus>('open')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
     if (task) {

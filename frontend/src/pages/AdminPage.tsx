@@ -11,6 +11,7 @@ import { fetchTemplateTasks, createTemplateTask, updateTemplateTask, deleteTempl
 import type { Tag } from '../types/tag'
 import type { TemplateTask } from '../types/task'
 
+
 const AdminPage: React.FC = () => {
   const { showAlert } = useSnackbar()
   const [tags, setTags] = useState<Tag[]>([])
