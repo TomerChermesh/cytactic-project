@@ -75,10 +75,11 @@ const SuggestedTasksTable: React.FC<SuggestedTasksTableProps> = ({
               label={tag.name}
               deletable={false}
               colorId={tag.color_id}
+              size='small'
             />
           )) || <Typography variant='body1' color='text.secondary'>No tags</Typography>}
         </Box>
-      ),
+      )
     },
     {
       field: 'actions',

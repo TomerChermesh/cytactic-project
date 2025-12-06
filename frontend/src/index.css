@@ -101,7 +101,6 @@ button:hover {
   }
 }
 
-/* Custom scrollbar styling */
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
 }
@@ -117,6 +116,34 @@ button:hover {
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* DataGrid scrollbar styling - light scrollbar */
+.custom-scrollbar .MuiDataGrid-virtualScroller::-webkit-scrollbar,
+.custom-scrollbar .MuiDataGrid-root .MuiDataGrid-virtualScroller::-webkit-scrollbar,
+.MuiDataGrid-root.custom-scrollbar .MuiDataGrid-virtualScroller::-webkit-scrollbar {
+  width: 8px !important;
+  background: transparent !important;
+}
+
+.custom-scrollbar .MuiDataGrid-virtualScroller::-webkit-scrollbar-track,
+.custom-scrollbar .MuiDataGrid-root .MuiDataGrid-virtualScroller::-webkit-scrollbar-track,
+.MuiDataGrid-root.custom-scrollbar .MuiDataGrid-virtualScroller::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border-radius: 4px !important;
+}
+
+.custom-scrollbar .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb,
+.custom-scrollbar .MuiDataGrid-root .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb,
+.MuiDataGrid-root.custom-scrollbar .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb {
+  background-color: #E0E0E0 !important;
+  border-radius: 4px !important;
+}
+
+.custom-scrollbar .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb:hover,
+.custom-scrollbar .MuiDataGrid-root .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb:hover,
+.MuiDataGrid-root.custom-scrollbar .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb:hover {
+  background-color: #BDBDBD !important;
 }
 
 .MuiIconButton-root:focus,

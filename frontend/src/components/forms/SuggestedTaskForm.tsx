@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { TextField, Box, Autocomplete, Chip } from '@mui/material'
+import { TextField, Box, Autocomplete } from '@mui/material'
 import BaseForm from './BaseForm'
-import { TagColor } from '../../constants/colors'
-import { getTagColor } from '../../utils/colors'
+import DeletableChip from '../common/DeletableChip'
 import type { TemplateTask } from '../../types/task'
 import type { Tag } from '../../types/tag'
 
@@ -96,22 +95,17 @@ const SuggestedTaskForm: React.FC<SuggestedTaskFormProps> = ({
           renderInput={(params) => (
             <TextField {...params} label='Tags' placeholder='Select tags' />
           )}
-          renderTags={(value, getTagProps) =>
+          renderValue={(value, getItemProps) =>
             value.map((option, index) => {
-              const { key, ...tagProps } = getTagProps({ index })
+              const { key, onDelete } = getItemProps({ index })
               return (
-                <Chip
+                <DeletableChip
                   key={key}
-                  {...tagProps}
                   label={option.name}
+                  deletable={true}
                   size='small'
-                  sx={{
-                    backgroundColor: getTagColor(option.color_id as TagColor),
-                    color: 'white',
-                    '& .MuiChip-deleteIcon': {
-                      color: 'white',
-                    },
-                  }}
+                  colorId={option.color_id}
+                  onDelete={onDelete ? () => onDelete({} as any) : undefined}
                 />
               )
             })

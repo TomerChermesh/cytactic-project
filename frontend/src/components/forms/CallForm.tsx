@@ -3,6 +3,7 @@ import { TextField, Box, Autocomplete } from '@mui/material'
 import BaseForm from './BaseForm'
 import type { CallDetail } from '../../types/call'
 import type { Tag } from '../../types/tag'
+import DeletableChip from '../common/DeletableChip'
 
 interface CallFormProps {
   open: boolean
@@ -105,7 +106,21 @@ const CallForm: React.FC<CallFormProps> = ({
           renderInput={(params) => (
             <TextField {...params} label='Tags' placeholder='Select tags' />
           )}
-          slotProps={{ chip: { size: 'small' } }}
+          renderValue={(value, getItemProps) =>
+            value.map((option, index) => {
+              const { key, onDelete } = getItemProps({ index })
+              return (
+                <DeletableChip
+                 key={key}
+                 label={option.name}
+                 deletable={true}
+                 size='small'
+                 colorId={option.color_id}
+                 onDelete={onDelete ? () => onDelete(null) : undefined}
+                />
+              )
+            })
+          }
         />
       </Box>
     </BaseForm>
