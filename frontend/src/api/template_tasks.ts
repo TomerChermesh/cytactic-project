@@ -2,7 +2,7 @@ import { api } from './client'
 import type { TemplateTask, CallTask } from '../types/task'
 
 export const fetchTemplateTasks = async (): Promise<TemplateTask[]> => {
-  const res = await api.get<TemplateTask[]>('/tasks/template/list')
+  const res = await api.get<TemplateTask[]>('/tasks/template')
   return res.data
 }
 

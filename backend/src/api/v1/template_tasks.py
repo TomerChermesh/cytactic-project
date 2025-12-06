@@ -11,7 +11,7 @@ from src.utils.logger import logger
 router: APIRouter = APIRouter(prefix='/v1/tasks/template')
 
 
-@router.get('/list', response_model=List[TemplateTaskRead])
+@router.get('', response_model=List[TemplateTaskRead])
 def list_template_tasks(task_dal: TaskDAL = Depends(get_task_dal)) -> List[TemplateTaskRead]:
     try:
         logger.info('Listing all template tasks')
