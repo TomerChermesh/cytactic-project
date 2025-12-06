@@ -47,13 +47,9 @@ def update_tag(
     payload: TagUpdate,
     tag_dal: TagDAL = Depends(get_tag_dal)
 ) -> Tag:
-    try:
-        # Get color_id from payload if provided, otherwise None
-        payload_dict = payload.model_dump(exclude_unset=True)
-        color_id = payload_dict.get('color_id') if 'color_id' in payload_dict else None
-        
-        logger.info(f'Updating tag: id={tag_id}, name={payload.name}, color_id={color_id}')
-        result = tag_dal.update_tag(tag_id, payload.name, color_id=color_id)
+    try:       
+        logger.info(f'Updating tag: id={tag_id}, name={payload.name}, color_id={payload.color_id}')
+        result = tag_dal.update_tag(tag_id, payload.name, payload.color_id)
         logger.info(f'Successfully updated tag: {result.name}')
         return result
     except ItemNotFoundError as e:
