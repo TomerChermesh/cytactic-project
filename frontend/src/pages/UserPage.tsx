@@ -15,6 +15,7 @@ import type { CallListItem, CallDetail } from '../types/call'
 import type { CallTask, TemplateTask } from '../types/task'
 import type { Tag } from '../types/tag'
 
+
 const UserPage: React.FC = () => {
   const { showAlert } = useSnackbar()
   const [calls, setCalls] = useState<CallListItem[]>([])
@@ -196,7 +197,7 @@ const UserPage: React.FC = () => {
         await updateCallTask(editingCallTask.id, selectedCall.id, name, status)
         showAlert('success', `Task '${name}' updated successfully!`)
       } else {
-        await createAdHocTask(selectedCall.id, name)
+        await createAdHocTask(selectedCall.id, name, status)
         showAlert('success', `Task '${name}' created successfully!`)
       }
       await refreshCallTasks()

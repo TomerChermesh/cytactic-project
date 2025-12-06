@@ -9,11 +9,13 @@ export const fetchCallTasks = async (callId: number): Promise<CallTask[]> => {
 export const createAdHocTask = async (
   callId: number,
   name: string,
+  status: TaskStatus = 'open',
 ): Promise<CallTask> => {
   const res = await api.post<CallTask>('/tasks', {
     name,
     type: 'ad_hoc',
     call_id: callId,
+    status
   })
   return res.data
 }

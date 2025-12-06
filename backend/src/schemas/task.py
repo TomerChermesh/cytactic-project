@@ -21,6 +21,7 @@ class TemplateTaskCreate(TaskCreateBase):
 
 class AdHocTaskCreate(TaskCreateBase):
     call_id: int
+    status: TaskStatus
 
 
 class TaskUpdateBase(BaseModel):

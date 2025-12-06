@@ -55,7 +55,7 @@ class TaskDAL(BaseDAL[Task]):
         
         return self.create(task)
 
-    def create_ad_hoc_task(self, name: str, call_id: int) -> Task:
+    def create_ad_hoc_task(self, name: str, call_id: int, status: TaskStatus = TaskStatus.OPEN) -> Task:
         task: Task = Task(name=name, type=TaskType.AD_HOC)
         task = self.create(task)
         
@@ -63,7 +63,7 @@ class TaskDAL(BaseDAL[Task]):
             calls_tasks.insert().values(
                 task_id=task.id,
                 call_id=call_id,
-                status=TaskStatus.OPEN
+                status=status
             )
         )
         self.db.commit()

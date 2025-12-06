@@ -27,8 +27,8 @@ def create_task(
     task_dal: TaskDAL = Depends(get_task_dal)
 ) -> Task:
     try:
-        logger.info(f'Creating ad-hoc task: name={payload.name}, call_id={payload.call_id}')
-        result = task_dal.create_ad_hoc_task(payload.name, payload.call_id)
+        logger.info(f'Creating ad-hoc task: name={payload.name}, call_id={payload.call_id}, status={payload.status}')
+        result = task_dal.create_ad_hoc_task(payload.name, payload.call_id, payload.status)
         logger.info(f'Successfully created task with id: {result.id}')
         return result
     except ItemNotFoundError as e:
