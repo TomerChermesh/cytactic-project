@@ -30,7 +30,9 @@ const DeletableChip: React.FC<DeletableChipProps> = ({
         height: size === 'small' ? 20 : 'auto',
         backgroundColor: color,
         color: 'white',
-        '& .MuiChip-deleteIcon': { color: 'white' },
+        '& .MuiChip-deleteIcon': {
+          color: 'white'
+        }
       }}
     />
   )

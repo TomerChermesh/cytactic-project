@@ -43,7 +43,7 @@ const CallCard: React.FC<CallCardProps> = ({
               <Typography variant='body2' color='text.secondary' component='span' sx={{ lineHeight: 1.5 }}>{formattedDate}</Typography>
             </Box>
             {call.tags && call.tags.length > 0 && (
-              <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                 {call.tags.map((tag) => (
                   <DeletableChip key={tag.id} label={tag.name} deletable={false} size='small' colorId={tag.color_id} />
                 ))}
