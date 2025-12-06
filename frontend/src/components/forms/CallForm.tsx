@@ -29,14 +29,19 @@ const CallForm: React.FC<CallFormProps> = ({
     if (call) {
       setName(call.name)
       setDescription(call.description || '')
-      setSelectedTags(call.tags || [])
+      setSelectedTags(call.tags)
+      setError('')
     } else {
-      setName('')
-      setDescription('')
-      setSelectedTags([])
+      resetForm()
     }
-    setError('')
   }, [call, open])
+
+  const resetForm = () => {
+    setName('')
+    setDescription('')
+    setSelectedTags([])
+    setError('')
+  }
 
   const handleSubmit = async () => {
     if (!name.trim()) {
@@ -49,9 +54,7 @@ const CallForm: React.FC<CallFormProps> = ({
     try {
       const tagIds = selectedTags.map((tag) => tag.id)
       await onSubmit(name.trim(), description.trim() || null, tagIds)
-      setName('')
-      setDescription('')
-      setSelectedTags([])
+      resetForm()
       onClose()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
@@ -62,10 +65,7 @@ const CallForm: React.FC<CallFormProps> = ({
 
   const handleClose = () => {
     if (!loading) {
-      setName('')
-      setDescription('')
-      setSelectedTags([])
-      setError('')
+      resetForm()
       onClose()
     }
   }
@@ -90,9 +90,7 @@ const CallForm: React.FC<CallFormProps> = ({
           fullWidth
           label='Description'
           value={description}
-          onChange={(e) => {
-            setDescription(e.target.value)
-          }}
+          onChange={(e) => { setDescription(e.target.value) }}
           multiline
           rows={3}
           disabled={loading}
@@ -102,9 +100,7 @@ const CallForm: React.FC<CallFormProps> = ({
           options={tags}
           getOptionLabel={(option) => option.name}
           value={selectedTags}
-          onChange={(_, newValue) => {
-            setSelectedTags(newValue)
-          }}
+          onChange={(_, newValue) => { setSelectedTags(newValue) }}
           disabled={loading}
           renderInput={(params) => (
             <TextField {...params} label='Tags' placeholder='Select tags' />

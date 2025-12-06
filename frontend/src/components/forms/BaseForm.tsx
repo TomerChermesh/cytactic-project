@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from '@mui/material'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material'
 
 interface BaseFormProps {
   open: boolean
@@ -26,7 +20,7 @@ const BaseForm: React.FC<BaseFormProps> = ({
   onClose,
   onSubmit,
   loading = false,
-  disabled = false,
+  disabled = false
 }) => {
   const handleClose = () => {
     if (!loading) {

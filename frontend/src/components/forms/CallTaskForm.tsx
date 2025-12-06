@@ -26,12 +26,17 @@ const CallTaskForm: React.FC<CallTaskFormProps> = ({
     if (task) {
       setName(task.name)
       setStatus(task.status)
+      setError('')
     } else {
-      setName('')
-      setStatus('open')
+      resetForm()
     }
-    setError('')
   }, [task, open])
+
+  const resetForm = () => {
+    setName('')
+    setStatus('open')
+    setError('')
+  }
 
   const handleSubmit = async () => {
     if (!name.trim()) {
@@ -40,11 +45,9 @@ const CallTaskForm: React.FC<CallTaskFormProps> = ({
     }
 
     setLoading(true)
-    setError('')
     try {
       await onSubmit(name.trim(), status)
-      setName('')
-      setStatus('open')
+      resetForm()
       onClose()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
@@ -55,9 +58,7 @@ const CallTaskForm: React.FC<CallTaskFormProps> = ({
 
   const handleClose = () => {
     if (!loading) {
-      setName('')
-      setStatus('open')
-      setError('')
+      resetForm()
       onClose()
     }
   }

@@ -29,13 +29,18 @@ const SuggestedTaskForm: React.FC<SuggestedTaskFormProps> = ({
   useEffect(() => {
     if (task) {
       setName(task.name)
-      setSelectedTags(task.tags || [])
+      setSelectedTags(task.tags)
+      setError('')
     } else {
-      setName('')
-      setSelectedTags([])
+      resetForm()
     }
-    setError('')
   }, [task, open])
+
+  const resetForm = () => {
+    setName('')
+    setSelectedTags([])
+    setError('')
+  }
 
   const handleSubmit = async () => {
     if (!name.trim()) {
@@ -44,12 +49,10 @@ const SuggestedTaskForm: React.FC<SuggestedTaskFormProps> = ({
     }
 
     setLoading(true)
-    setError('')
     try {
       const tagIds = selectedTags.map((tag) => tag.id)
       await onSubmit(name.trim(), tagIds)
-      setName('')
-      setSelectedTags([])
+      resetForm()
       onClose()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
@@ -60,9 +63,7 @@ const SuggestedTaskForm: React.FC<SuggestedTaskFormProps> = ({
 
   const handleClose = () => {
     if (!loading) {
-      setName('')
-      setSelectedTags([])
-      setError('')
+      resetForm()
       onClose()
     }
   }

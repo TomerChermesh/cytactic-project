@@ -38,7 +38,7 @@ const CallEditBox: React.FC<CallEditBoxProps> = ({
   onAddSuggestedTask,
   onCreateNewCall,
   onClose,
-  onEdit,
+  onEdit
 }) => {
   if (!call) {
     return (
@@ -93,13 +93,7 @@ const CallEditBox: React.FC<CallEditBoxProps> = ({
               <EditIcon fontSize='medium' />
             </IconButton>
           )}
-          <Typography 
-            variant='h4' 
-            sx={{ 
-              flex: 1,
-              fontFamily: '"TT Chocolates Trial Bold", sans-serif !important'
-            }}
-          >
+          <Typography variant='h4' sx={{ flex: 1, fontFamily: '"TT Chocolates Trial Bold", sans-serif !important' }}>
             {call.name}
           </Typography>
         </Box>

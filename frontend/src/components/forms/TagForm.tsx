@@ -22,12 +22,17 @@ const TagForm: React.FC<TagFormProps> = ({ open, tag, onClose, onSubmit }) => {
     if (tag) {
       setName(tag.name)
       setColorId(tag.color_id as TagColor)
+      setError('')
     } else {
-      setName('')
-      setColorId(TagColor.GRAY)
+      resetForm()
     }
-    setError('')
   }, [tag, open])
+
+  const resetForm = () => {
+    setName('')
+    setColorId(TagColor.GRAY)
+    setError('')
+  }
 
   const handleSubmit = async () => {
     if (!name.trim()) {
@@ -36,11 +41,9 @@ const TagForm: React.FC<TagFormProps> = ({ open, tag, onClose, onSubmit }) => {
     }
 
     setLoading(true)
-    setError('')
     try {
       await onSubmit(name.trim(), colorId)
-      setName('')
-      setColorId(TagColor.GRAY)
+      resetForm()
       onClose()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
@@ -51,9 +54,7 @@ const TagForm: React.FC<TagFormProps> = ({ open, tag, onClose, onSubmit }) => {
 
   const handleClose = () => {
     if (!loading) {
-      setName('')
-      setColorId(TagColor.GRAY)
-      setError('')
+      resetForm()
       onClose()
     }
   }

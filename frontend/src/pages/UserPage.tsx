@@ -140,12 +140,10 @@ const UserPage: React.FC = () => {
       
       if (editingCall) {
         savedCall = await updateCall(editingCall.id, name, description, tagIds)
-        await refreshCallData(savedCall.id, name, true)
       } else {
-        savedCall = await createCall(name, tagIds, description)
-        await refreshCallData(savedCall.id, name, false)
+        savedCall = await createCall(name, tagIds, description)        
       }
-      
+      await refreshCallData(savedCall.id, name, false)
       setEditingCall(null)
     } catch (error) {
       showAlert('error', 'Failed to save call.')
