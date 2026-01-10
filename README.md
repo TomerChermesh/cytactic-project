@@ -4,8 +4,6 @@ An internal platform for managing incoming calls, tasks, and tags with a modern 
 
 Full Design & Documentation here: [👉🏼 Centric Design](https://docs.google.com/document/d/10aEbfFCCFnQFBrMRz-78qghZ2FdHUBQyNTvwgJiF09I/edit?usp=sharing)
 
-Currently Deployed and available at: [Centric](https://centriq.tomerchermesh.com/)
-
 ## 📋 Table of Contents
 
 - [Prerequisites](#prerequisites)
